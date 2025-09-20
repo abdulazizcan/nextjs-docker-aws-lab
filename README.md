@@ -1,36 +1,26 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Next.js, Docker & AWS EC2 Deployment Lab
 
-## Getting Started
+This project is a hands-on lab that demonstrates the step-by-step process of moving a modern web application from a local development environment to a live production environment. The goal is to containerize a Next.js application using Docker, configure Nginx as a Reverse Proxy, and deploy the entire system on an AWS EC2 server.
 
-First, run the development server:
+## 🚀 Technologies Used
+
+* **Frontend:** Next.js, React, TypeScript, Tailwind CSS  
+* **Testing:** Jest, React Testing Library, Cypress  
+* **Containerization:** Docker, Docker Compose  
+* **Infrastructure:** Nginx (Reverse Proxy)  
+* **Cloud Provider:** AWS (EC2)
+
+## 🏛️ Architecture
+
+This project consists of two main containers managed via `docker-compose`:
+
+1. **`nginx` Service:** Handles all incoming HTTP requests on port 80 and securely forwards them to the running Next.js application (Reverse Proxy).  
+2. **`app` Service:** Runs the production build of the Next.js application on port 3000. This container is not directly exposed to the outside world; all communication is routed through Nginx.
+
+## 💻 Running Locally
+
+To run the project on your local machine, you only need Docker and Docker Compose installed.
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+# After cloning the project, run the following command from the root directory:
+docker-compose up --build
