@@ -2,7 +2,7 @@ version: "3.8"
 
 services: 
   app:
-    build: . 
+    image: 834988222517.dkr.ecr.eu-north-1.amazonaws.com/lab-projesi/app:latest
     container_name: nextjs_app
     ports:
       - "3001:3000"
