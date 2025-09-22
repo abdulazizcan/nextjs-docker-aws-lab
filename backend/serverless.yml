@@ -1,0 +1,44 @@
+# "org" ensures this Service is used with the correct Serverless Framework Access Key.
+org: canac
+# "service" is the name of this project. This will also be added to your AWS resource names.
+service: lab-projesi-backend
+frameworkVersion: '4'
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: eu-north-1
+  stage: dev
+  
+  httpApi:
+    cors: true
+    authorizers:
+      CognitoAuthorizer:
+        type: jwt
+        identitySource: "$request.header.Authorization"
+        issuerUrl: "https://cognito-idp.eu-north-1.amazonaws.com/eu-north-1_2mIMhznWO" 
+        audience:
+          - "6s2lme45v45u43286bh49ut4oi"
+
+  iam:
+    role:
+      statements:
+        - Effect: "Allow"
+          Action:
+            - "dynamodb:GetItem"
+            - "dynamodb:PutItem"
+          Resource:
+            - "arn:aws:dynamodb:eu-north-1:834988222517:table/user-pages" 
+
+functions:
+  api:
+    handler: handler.main
+    events:
+      - httpApi:
+          path: /page/{username}
+          method: get
+      - httpApi:
+          path: /page
+          method: post
+          authorizer:
+            name: CognitoAuthorizer

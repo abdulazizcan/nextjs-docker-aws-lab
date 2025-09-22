@@ -1,26 +1,34 @@
-# Next.js, Docker & AWS EC2 Deployment Lab
+# Full-Stack AWS Deployment Lab: Containerized Frontend & Serverless Backend
 
-This project is a hands-on lab that demonstrates the step-by-step process of moving a modern web application from a local development environment to a live production environment. The goal is to containerize a Next.js application using Docker, configure Nginx as a Reverse Proxy, and deploy the entire system on an AWS EC2 server.
+This is a hands-on lab project demonstrating a modern, full-stack web application architecture on AWS. The project features a containerized Next.js frontend served via Nginx on EC2, and a completely serverless backend powered by API Gateway, Lambda, and DynamoDB.
 
-## 🚀 Technologies Used
+The goal is to showcase the entire lifecycle: from local development and containerization to a secure, scalable, and professional cloud deployment with user authentication.
 
-* **Frontend:** Next.js, React, TypeScript, Tailwind CSS  
-* **Testing:** Jest, React Testing Library, Cypress  
-* **Containerization:** Docker, Docker Compose  
-* **Infrastructure:** Nginx (Reverse Proxy)  
-* **Cloud Provider:** AWS (EC2)
+## 🚀 Core Technologies
+
+* **Frontend:** Next.js, React, TypeScript, Tailwind CSS, AWS Amplify (for Cognito)
+* **Backend (Serverless):** AWS Lambda, API Gateway, DynamoDB, Serverless Framework
+* **Infrastructure & Deployment:** Docker, Docker Compose, Nginx, AWS EC2, Route 53, ECR, IAM
+* **Testing:** Jest, React Testing Library, Cypress
+* **Authentication:** AWS Cognito
 
 ## 🏛️ Architecture
 
-This project consists of two main containers managed via `docker-compose`:
+This project follows a decoupled architecture:
 
-1. **`nginx` Service:** Handles all incoming HTTP requests on port 80 and securely forwards them to the running Next.js application (Reverse Proxy).  
-2. **`app` Service:** Runs the production build of the Next.js application on port 3000. This container is not directly exposed to the outside world; all communication is routed through Nginx.
+1.  **Frontend Service:**
+    * A Next.js application running inside a Docker container on an **AWS EC2** instance.
+    * An **Nginx** container sits in front as a reverse proxy, handling SSL termination and serving traffic.
+    * The application artifact (Docker Image) is stored in **AWS ECR**.
+    * The live site is accessible via a custom domain managed by **AWS Route 53** with a **Let's Encrypt SSL** certificate.
 
-## 💻 Running Locally
+2.  **Backend Service:**
+    * A serverless API built with the **Serverless Framework**.
+    * **API Gateway** provides the public HTTP endpoints.
+    * **AWS Lambda** functions (Node.js/TypeScript) contain the business logic.
+    * **DynamoDB** is used as the persistent, NoSQL database.
+    * **AWS Cognito** manages all user authentication (sign-up, sign-in).
 
-To run the project on your local machine, you only need Docker and Docker Compose installed.
+## 💻 Getting Started
 
-```bash
-# After cloning the project, run the following command from the root directory:
-docker-compose up --build
+This project is structured as a monorepo with `frontend` and `backend` directories. Please refer to the `README.md` file inside each directory for specific setup and deployment instructions.
