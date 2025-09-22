@@ -42,8 +42,12 @@ export default function Home() {
         options: { userAttributes: { email } },
       });
       setIsSigningUp(true);
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("Bilinmeyen bir hata oluştu.");
+      }
     }
   };
 
@@ -54,8 +58,12 @@ export default function Home() {
       await confirmSignUp({ username: email, confirmationCode: authCode });
       alert("Hesap başarıyla doğrulandı! Lütfen giriş yapın.");
       window.location.reload();
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("Bilinmeyen bir hata oluştu.");
+      }
     }
   };
 
@@ -65,8 +73,12 @@ export default function Home() {
     try {
       await signIn({ username: email, password });
       router.push("/dashboard");
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("Bilinmeyen bir hata oluştu.");
+      }
     }
   };
 
